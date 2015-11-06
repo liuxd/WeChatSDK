@@ -11,8 +11,8 @@ class Weixin
 
 		if (isset($_GET['show'])) {
 			see(memcache_get($mmc, 'code'));
-			see(json_decode(memcache_get($mmc, 'info')));
-			see(json_decode(memcache_get($mmc, 'user')));
+			see(json_decode(memcache_get($mmc, 'info'), true));
+			see(json_decode(memcache_get($mmc, 'user'), true));
 		} else {
 			$code = $this->getCode();
 			$info = $this->getAccessToken($code);

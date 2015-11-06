@@ -8,7 +8,7 @@ class Weixin
 	public function main()
 	{
 		$mmc = memcache_connect();
-var_dump(memcache_get($mmc, 'info'));die;
+echo memcache_get($mmc, 'info');die;
 		if (isset($_GET['show'])) {
 			see(memcache_get($mmc, 'code'));
 			see(json_decode(memcache_get($mmc, 'info'), true));

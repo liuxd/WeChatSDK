@@ -41,8 +41,7 @@ class Weixin
 	private function getAccessToken($code)
 	{
 		$url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx1061e4e55dd6de25&secret=9dbfb0f945333b1c141cbc215aa734c3&code={$code}&grant_type=authorization_code";
-		$info = $this->curlPost($url);
-		return $info;
+		return json_decode($this->curlPost($url));
 	}
 
 	/**

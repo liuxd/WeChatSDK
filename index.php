@@ -56,7 +56,7 @@ class Weixin
 	private function getUserWeixinInfo($access_token, $open_id)
 	{
 		$url = "https://api.weixin.qq.com/sns/userinfo?access_token={$access_token}&openid={$open_id}&lang=zh_CN";
-		return $this->curlPost($url);
+		return json_decode($this->curlPost($url), true);
 	}
 
     private function curlPost($url)

@@ -18,9 +18,9 @@ class Weixin
 			$info = $this->getAccessToken($code);
 			$user = $this->getUserWeixinInfo($info['access_token'], $info['openid']);
 
-			memcache_set($mmc, 'code', $code);
-			memcache_set($mmc, 'info', json_encode($info));
-			memcache_set($mmc, 'user', json_encode($user));
+			see($code);
+			see($info);
+			see($user);
 		}
 	}
 

@@ -9,7 +9,11 @@ class Weixin
 	{
 		$mmc = memcache_connect();
 
-		if (isset($_GET['code'])) {
+		if (isset($_GET['show'])) {
+			see(memcache_get($mmc, 'code'));
+			see(json_decode(memcache_get($mmc, 'info')));
+			see(json_decode(memcache_get($mmc, 'user')));
+		} else {
 			$code = $this->getCode();
 			$info = $this->getAccessToken($code);
 			$user = $this->getUserWeixinInfo($info['access_token'], $info['openid']);
@@ -17,10 +21,6 @@ class Weixin
 			memcache_set($mmc, 'code', $code);
 			memcache_set($mmc, 'info', json_encode($info));
 			memcache_set($mmc, 'user', json_encode($user));
-		} else {
-			see(memcache_get($mmc, 'code'));
-			see(json_decode(memcache_get($mmc, 'info')));
-			see(json_decode(memcache_get($mmc, 'user')));
 		}
 	}
 

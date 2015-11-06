@@ -1,4 +1,7 @@
 <?php
+/**
+ * Start with : https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1061e4e55dd6de25&redirect_uri=http%3a%2f%2fliuxd.sinaapp.com%2f&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+ */
 
 class Weixin
 {

@@ -15,13 +15,17 @@ class Weixin
 			see(json_decode(memcache_get($mmc, 'user'), true));
 		} else {
 			$code = $this->getCode();
-			$info = $this->getAccessToken($code);
-			$user = $this->getUserWeixinInfo($info['access_token'], $info['openid']);
-
-			see($code);
-			see($info);
+			$user = $this->getUserInfo($code);
 			see($user);
 		}
+	}
+
+	public function getUserInfo($code)
+	{
+		$info = $this->getAccessToken($code);
+		$user = $this->getUserWeixinInfo($info['access_token'], $info['openid']);
+
+		return $user;
 	}
 
 	/**
@@ -70,13 +74,6 @@ class Weixin
         curl_close($ch);
 
         return $file_contents;
-    }
-
-    public function test_curlPost()
-    {
-    	$url = 'https://leetcode.com/';
-    	$info = $this->curlPost($url);
-    	var_dump($info);
     }
 }
 

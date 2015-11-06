@@ -15,12 +15,12 @@ class Weixin
 			$user = $this->getUserWeixinInfo($info['access_token'], $info['openid']);
 
 			memcache_set($mmc, 'code', $code);
-			memcache_set($mmc, 'token', $token);
-			memcache_set($mmc, 'user', $user);
+			memcache_set($mmc, 'openid', $info['openid']);
+			memcache_set($mmc, 'user', json_encode($user));
 		} else {
 			see(memcache_get($mmc, 'code'));
-			see(memcache_get($mmc, 'token'));
-			see(memcache_get($mmc, 'user'));
+			see(memcache_get($mmc, 'openid'));
+			see(json_decode(memcache_get($mmc, 'user')));
 		}
 	}
 

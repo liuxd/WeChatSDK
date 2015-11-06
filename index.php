@@ -18,9 +18,9 @@ class Weixin
 			memcache_set($mmc, 'openid', $info['openid']);
 			memcache_set($mmc, 'user', json_encode($user));
 		} else {
-			see(memcache_get($mmc, 'code'));
-			see(memcache_get($mmc, 'openid'));
-			see(json_decode(memcache_get($mmc, 'user')));
+			var_dump(memcache_get($mmc, 'code'));
+			var_dump(memcache_get($mmc, 'openid'));
+			var_dump(json_decode(memcache_get($mmc, 'user')));
 		}
 	}
 

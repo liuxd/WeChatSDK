@@ -78,7 +78,7 @@ class Weixin
     }
 }
 
-require __DIR__ '/inc.php';
+require __DIR__ . '/inc.php';
 (new Weixin)->main();
 
 # end of this file

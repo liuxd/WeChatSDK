@@ -1,11 +1,14 @@
 <?php
 
-namespace weixin;
-
 class Agent
 {
-    public function __construct($sModuleName, $sAppID, $sSecret)
+    /**
+     * @param array $aParams ['sModuleName' => 'User', 'sAppID' => 'skjdf2342sdfhu', 'sSecret' => 'zxcbvwerusgdfgakheyu32734628']
+     */
+    public function __construct($aParams)
     {
+        extract($aParams);
+
         $sRootPath = __DIR__ . DIRECTORY_SEPARATOR;
         require $sRootPath . 'Base.inc.php';
 

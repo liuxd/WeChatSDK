@@ -2,7 +2,7 @@
 /**
  * Show variables with good style.
  */
-function c()
+function see()
 {
     $cnt = func_num_args();
     $values = func_get_args();

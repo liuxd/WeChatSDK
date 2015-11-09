@@ -2,7 +2,7 @@
 /**
  * Show variables with good style.
  */
-function see()
+function c()
 {
     $cnt = func_num_args();
     $values = func_get_args();
@@ -54,18 +54,6 @@ function see()
             echo '</div>';
             break;
     }
-}
-
-function e($msg, $is_dead = true)
-{
-    echo json_encode($msg);
-
-    if ($is_dead) die;
-}
-
-function throw_exception($e)
-{
-    return true;
 }
 
 # end of this file

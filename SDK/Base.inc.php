@@ -4,20 +4,20 @@ namespace weixin;
 
 class Base
 {
-	protected $sAppID = '';
-	protected $sSecret = '';
+    protected $sAppID = '';
+    protected $sSecret = '';
 
-	public function __construct($sAppID, $sSecret)
-	{
-		$this->sAppID = $sAppID;
-		$this->sSecret = $sSecret;
-	}
+    public function __construct($sAppID, $sSecret)
+    {
+        $this->sAppID = $sAppID;
+        $this->sSecret = $sSecret;
+    }
 
-	/**
-	 * 获得页面的返回值。
-	 * @param string $sURL
-	 * @return string
-	 */
+    /**
+     * 获得页面的返回值。
+     * @param string $sURL
+     * @return string
+     */
     protected function curlGet($sURL)
     {
         $ch = curl_init();

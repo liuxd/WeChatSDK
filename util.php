@@ -6,6 +6,12 @@ function see()
 {
     $cnt = func_num_args();
     $values = func_get_args();
+
+    if (php_sapi_name() === 'cli') {
+        print_r($values);
+        return false;
+    }
+
     if ($cnt > 1) {
         foreach ($values as $k => $v) {
             see($v);

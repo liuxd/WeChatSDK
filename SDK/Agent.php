@@ -10,7 +10,7 @@ class Agent
         extract($aParams);
 
         $sRootPath = __DIR__ . DIRECTORY_SEPARATOR;
-        require $sRootPath . 'Base.inc.php';
+        require_once $sRootPath . 'Base.inc.php';
 
         $sModuleFilePath = $sRootPath . $sModuleName . '.module.php';
 
@@ -18,7 +18,7 @@ class Agent
             return false;
         }
 
-        require $sModuleFilePath;
+        require_once $sModuleFilePath;
 
         $sClassName = "\\weixin\\$sModuleName";
 

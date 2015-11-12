@@ -94,6 +94,25 @@ class Base
 
         return $aResult;
     }
+
+    protected function curlPost($sURL, $aData)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $sURL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($aData, JSON_UNESCAPED_UNICODE));
+
+        $aResult = curl_exec($ch);
+        curl_close($ch);
+
+        return $aResult;
+    }
 }
 
 # end of this file

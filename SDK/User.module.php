@@ -1,4 +1,7 @@
 <?php
+/**
+ * 用户管理。
+ */
 
 namespace weixin;
 

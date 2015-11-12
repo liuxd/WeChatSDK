@@ -3,10 +3,15 @@
 class Agent
 {
     /**
-     * @param array $aParams ['sModuleName' => 'User', 'sAppID' => 'skjdf2342sdfhu', 'sSecret' => 'zxcbvwerusgdfgakheyu32734628']
+     * @param array $aParams ['sModuleName' => 'User', 'sAppID' => 'skjdf2342sdfhu', 'sSecret' => 'zxcbvwerusgdfgakheyu32734628', 'oRedis' => $oRedis]
+     * @return false
      */
     public function __construct($aParams)
     {
+        if (!isset($aParams['sModuleName']) || !isset($aParams['sAppID']) || !isset($aParams['sSecret'])) {
+            return false;
+        }
+
         extract($aParams);
 
         $sRootPath = __DIR__ . DIRECTORY_SEPARATOR;
@@ -19,10 +24,14 @@ class Agent
         }
 
         require_once $sModuleFilePath;
-
         $sClassName = "\\weixin\\$sModuleName";
-
         $this->{$sModuleName} = new $sClassName($sAppID, $sSecret);
+
+        if (isset($aParams['oRedis']) && $aParams['oRedis'] instanceof \Redis) {
+            $this->{$sModuleName}->setRedis($oRedis);
+        }
+
+        return true;
     }
 }
 

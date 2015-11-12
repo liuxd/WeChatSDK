@@ -9,6 +9,7 @@ class Base
 
     private $sAccessTokenRedisKey = 'weixin_access_token';
     private $oRedis = null;
+    private $bSetRedis = false;
 
     public function __construct($sAppID, $sSecret)
     {
@@ -40,28 +41,34 @@ class Base
         return $aReturn['access_token'];
     }
 
+    /**
+     * 从外部注入Redis对象。
+     * @param Redis $oRedis
+     * @return bool
+     */
+    public function setRedis($oRedis)
+    {
+        $bReturn = false;
+
+        if ($oRedis instanceof \Redis) {
+            $this->oRedis = $oRedis;
+            $this->bSetRedis = true;
+            $bReturn = true;
+        }
+
+        return $bReturn;
+    }
+
+    /**
+     * 获得Redis对象。
+     * @return Redis
+     */
     private function getRedis()
     {
-        if (!is_null($this->oRedis)) {
-            return $this->oRedis;
+        if (!$this->bSetRedis && is_null($this->oRedis)) {
+            $this->oRedis = new \Redis;
+            $this->oRedis->connect('127.0.0.1', 6379);
         }
-
-        $sHost = '127.0.0.1';
-        $iPort = 6379;
-
-        $sConfigFile = __DIR__ . DIRECTORY_SEPARATOR . 'config.ini';
-
-        if (file_exists($sConfigFile)) {
-            $aConfig = parse_ini_file($sConfigFile, true);
-
-            if (isset($aConfig['redis'])) {
-                $sHost = $aConfig['redis']['host'];
-                $iPort = $aConfig['redis']['port'];
-            }
-        }
-
-        $this->oRedis = new \Redis;
-        $this->oRedis->connect($sHost, $iPort);
 
         return $this->oRedis;
     }

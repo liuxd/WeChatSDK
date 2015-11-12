@@ -7,6 +7,11 @@ namespace weixin;
 
 class Menu extends Base
 {
+    /**
+     * 创建自定义菜单配置。
+     * @param array $aConfig 配置信息，具体结构参考官方文档。
+     * @return array
+     */
     public function createConfig($aConfig)
     {
         $sURL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->getGlobalAccessToken();

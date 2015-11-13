@@ -83,7 +83,7 @@ class Base
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $sURL);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
         curl_setopt($ch, CURLOPT_HEADER, false);
@@ -100,7 +100,7 @@ class Base
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $sURL);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
         curl_setopt($ch, CURLOPT_HEADER, false);

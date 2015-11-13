@@ -12,7 +12,7 @@ class Menu extends Base
      * @param array $aConfig 配置信息，具体结构参考官方文档。
      * @return array
      */
-    public function createConfig($aConfig)
+    public function create($aConfig)
     {
         $sAccessToken = $this->getGlobalAccessToken();
         $sURL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $sAccessToken;
@@ -23,7 +23,7 @@ class Menu extends Base
      * 获得自定义菜单的配置。
      * @return array
      */
-    public function getConfig()
+    public function getCurrentSelfmenuInfo()
     {
         $sAccessToken = $this->getGlobalAccessToken();
         $sURL = 'https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=' . $sAccessToken;

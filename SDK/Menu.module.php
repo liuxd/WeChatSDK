@@ -14,7 +14,8 @@ class Menu extends Base
      */
     public function createConfig($aConfig)
     {
-        $sURL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->getGlobalAccessToken();
+        $sAccessToken = $this->getGlobalAccessToken();
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $sAccessToken;
         return $this->curlPost($sURL, $aConfig);
     }
 

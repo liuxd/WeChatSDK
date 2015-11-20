@@ -16,7 +16,7 @@ class Menu extends Base
     {
         $sAccessToken = $this->getGlobalAccessToken();
         $sURL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $sAccessToken;
-        return $this->curlPost($sURL, $aConfig);
+        return json_decode($this->curlPost($sURL, $aConfig), true);
     }
 
     /**

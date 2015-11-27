@@ -7,7 +7,7 @@ class Base
     protected $sAppID = '';
     protected $sSecret = '';
 
-    private $sAccessTokenRedisKey = 'weixin_access_token';
+    private $sAccessTokenRedisKey = 'api:weixin:access_token';
     private $oRedis = null;
     private $bSetRedis = false;
 

@@ -18,6 +18,16 @@ class Base
     }
 
     /**
+     * 删除access_token的缓存。
+     * @return bool
+     */
+    public function delGlobalAccessToken()
+    {
+        $oRedis = $this->getRedis();
+        return $oRedis->del($this->sAccessTokenRedisKey);
+    }
+
+    /**
      * 获得全局接口凭据。
      * @return string
      */
@@ -35,7 +45,7 @@ class Base
 
         if (isset($aReturn['access_token'])) {
             $oRedis->set($this->sAccessTokenRedisKey, $aReturn['access_token']);
-            $oRedis->setTimeout($this->sAccessTokenRedisKey, $aReturn['expires_in']);
+            $oRedis->setTimeout($this->sAccessTokenRedisKey, $aReturn['expires_in'] - 200);
         }
 
         return $aReturn['access_token'];

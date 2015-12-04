@@ -19,12 +19,24 @@ class Base
 
     /**
      * 删除access_token的缓存。
-     * @return bool
+     * @return int
      */
     public function delGlobalAccessToken()
     {
         $oRedis = $this->getRedis();
         return $oRedis->del($this->sAccessTokenRedisKey);
+    }
+
+    /**
+     * 获得access_token的详情。
+     * @return array
+     */
+    public function getGlobalAccessTokenDetail()
+    {
+        $oRedis = $this->getRedis();
+        $value = $this->getGlobalAccessToken();
+        $ttl = $oRedis->ttl($this->sAccessTokenRedisKey);
+        return [$value, $ttl];
     }
 
     /**
@@ -105,6 +117,12 @@ class Base
         return $aResult;
     }
 
+    /**
+     * 向指定URL post数据。
+     * @param string $sURL
+     * @param array $aData
+     * @return string
+     */
     protected function curlPost($sURL, $aData)
     {
         $ch = curl_init();

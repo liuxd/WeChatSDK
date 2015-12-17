@@ -19,9 +19,8 @@ class Message extends Base
         $aData['touser'] = $sToUser;
         $aData['template_id'] = $sMessageTemplateID;
 
-        $sAccessToken = $this->getGlobalAccessToken();
-        $sURL = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $sAccessToken;
-        return json_decode($this->curlPost($sURL, $aData), true);
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $this->sAccessToken;
+        return $this->curlPost($sURL, $aData);
     }
 }
 

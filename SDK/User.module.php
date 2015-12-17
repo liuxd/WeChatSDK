@@ -8,6 +8,16 @@ namespace weixin;
 class User extends Base
 {
     /**
+     * 获得用户分组列表。
+     * @return array
+     */
+    public function getUserGroupList()
+    {
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $this->sAccessToken;
+        return $this->curlGet($sURL);
+    }
+
+    /**
      * 获得授权用户的信息。
      * @param string $code 回调页面获得的临时code。
      * @return array
@@ -28,7 +38,7 @@ class User extends Base
     private function getAccessToken($code)
     {
         $sURL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={$this->sAppID}&secret={$this->sSecret}&code={$code}&grant_type=authorization_code";
-        return json_decode($this->curlGet($sURL), true);
+        return $this->curlGet($sURL);
     }
 
     /**
@@ -40,7 +50,7 @@ class User extends Base
     private function getUserWeixinInfo($access_token, $openid)
     {
         $sURL = "https://api.weixin.qq.com/sns/userinfo?access_token={$access_token}&openid={$openid}&lang=zh_CN";
-        return json_decode($this->curlGet($sURL), true);
+        return $this->curlGet($sURL);
     }
 
 }

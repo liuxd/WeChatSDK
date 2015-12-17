@@ -16,7 +16,7 @@ class Material extends Base
     {
         $sAccessToken = $this->getGlobalAccessToken();
         $sURL = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=' . $sAccessToken;
-        return json_decode($this->curlPost($sURL, $aParams), true);
+        return $this->curlPost($sURL, $aParams);
     }
 
     /**
@@ -28,7 +28,7 @@ class Material extends Base
     {
         $sAccessToken = $this->getGlobalAccessToken();
         $sURL = 'https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=' . $sAccessToken;
-        return json_decode($this->curlGet($sURL), true);
+        return $this->curlGet($sURL);
     }
 
     /**
@@ -40,7 +40,7 @@ class Material extends Base
     {
         $sAccessToken = $this->getGlobalAccessToken();
         $sURL = 'https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=' . $sAccessToken;
-        return json_decode($this->curlPost($sURL, $aInfo), true);
+        return $this->curlPost($sURL, $aInfo);
     }
 
     /**
@@ -52,13 +52,7 @@ class Material extends Base
     {
         $sAccessToken = $this->getGlobalAccessToken();
         $sURL = 'https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=' . $sAccessToken;
-        $aReturn = $this->curlPost($sURL, ['media_id' => $sMediaID]);
-
-        if (is_string($aReturn)) {
-            return json_decode($aReturn, true);
-        }
-
-        return false;
+        return $this->curlPost($sURL, ['media_id' => $sMediaID]);
     }
 }
 

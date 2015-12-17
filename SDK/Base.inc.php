@@ -11,10 +11,16 @@ class Base
     private $oRedis = null;
     private $bSetRedis = false;
 
-    public function __construct($sAppID, $sSecret)
+    public function __construct($sAppID, $sSecret, $oRedis = null)
     {
         $this->sAppID = $sAppID;
         $this->sSecret = $sSecret;
+
+        if (!is_null($oRedis)) {
+            $this->setRedis($oRedis);
+        }
+
+        $this->sAccessToken = $this->getGlobalAccessToken();
     }
 
     /**
@@ -53,7 +59,7 @@ class Base
         }
 
         $sURL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$this->sAppID}&secret={$this->sSecret}";
-        $aReturn = json_decode($this->curlGet($sURL), true);
+        $aReturn = $this->curlGet($sURL);
 
         if (isset($aReturn['access_token'])) {
             $oRedis->set($this->sAccessTokenRedisKey, $aReturn['access_token']);
@@ -114,7 +120,7 @@ class Base
         $aResult = curl_exec($ch);
         curl_close($ch);
 
-        return $aResult;
+        return json_decode($aResult, true);
     }
 
     /**
@@ -139,7 +145,7 @@ class Base
         $aResult = curl_exec($ch);
         curl_close($ch);
 
-        return $aResult;
+        return json_decode($aResult, true);
     }
 }
 

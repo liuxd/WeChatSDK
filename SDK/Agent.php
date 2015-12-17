@@ -25,11 +25,7 @@ class Agent
 
         require_once $sModuleFilePath;
         $sClassName = "\\weixin\\$sModuleName";
-        $this->{$sModuleName} = new $sClassName($sAppID, $sSecret);
-
-        if (isset($aParams['oRedis']) && $aParams['oRedis'] instanceof \Redis) {
-            $this->{$sModuleName}->setRedis($oRedis);
-        }
+        $this->{$sModuleName} = new $sClassName($sAppID, $sSecret, $aParams['oRedis']);
 
         return true;
     }

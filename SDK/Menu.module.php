@@ -14,9 +14,8 @@ class Menu extends Base
      */
     public function create($aConfig)
     {
-        $sAccessToken = $this->getGlobalAccessToken();
-        $sURL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $sAccessToken;
-        return json_decode($this->curlPost($sURL, $aConfig), true);
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->sAccessToken;
+        return $this->curlPost($sURL, $aConfig);
     }
 
     /**
@@ -25,9 +24,8 @@ class Menu extends Base
      */
     public function getCurrentSelfmenuInfo()
     {
-        $sAccessToken = $this->getGlobalAccessToken();
-        $sURL = 'https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=' . $sAccessToken;
-        return json_decode($this->curlGet($sURL), true);
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=' . $this->sAccessToken;
+        return $this->curlGet($sURL);
     }
 }
 

@@ -8,13 +8,47 @@ namespace weixin;
 class User extends Base
 {
     /**
+     * 批量加入某组。
+     * @param int $iGroupID
+     * @param array $aOpenIDs
+     * @return array
+     */
+    public function joinGroup($iGroupID, $aOpenIDs)
+    {
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/groups/members/batchupdate?access_token=' . $this->sAccessToken;
+        return $this->curlPost($sURL, ['openid_list' => $aOpenIDs, 'to_groupid' => $iGroupID]);
+    }
+
+    /**
      * 获得用户分组列表。
      * @return array
      */
     public function getUserGroupList()
     {
-        $sURL = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $this->sAccessToken;
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/groups/get?access_token=' . $this->sAccessToken;
         return $this->curlGet($sURL);
+    }
+
+    /**
+     * 创建分组。
+     * @param string $sName
+     * @return array
+     */
+    public function createGroup($sName)
+    {
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/groups/create?access_token=' . $this->sAccessToken;
+        return $this->curlPost($sURL, ['group' => ['name' => $sName]]);
+    }
+
+    /**
+     * 删除分组。
+     * @param int $iGroupID
+     * @return array
+     */
+    public function delGroup($iGroupID)
+    {
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/groups/delete?access_token=' . $this->sAccessToken;
+        return $this->curlPost($sURL, ['group' => ['id' => $iGroupID]]);
     }
 
     /**

@@ -12,15 +12,21 @@ class Message extends Base
      * @param string $sMessageTemplateID 模板ID。
      * @param string $sToUser 目标用户。
      * @param array $aData 消息内容。
+     * @param string $sURL 点击的URL。
      * @return array
      */
-    public function pushMessage($sMessageTemplateID, $sToUser, $aData)
+    public function pushMessage($sMessageTemplateID, $sToUser, $aData, $sURL = '')
     {
-        $aData['touser'] = $sToUser;
-        $aData['template_id'] = $sMessageTemplateID;
+        $aBody['touser'] = $sToUser;
+        $aBody['template_id'] = $sMessageTemplateID;
+        $aBody['data'] = $aData;
+
+        if ($sURL !== '') {
+            $aBody['url'] = $sURL;
+        }
 
         $sURL = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $this->sAccessToken;
-        return $this->curlPost($sURL, $aData);
+        return $this->curlPost($sURL, $aBody);
     }
 }
 

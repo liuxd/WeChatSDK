@@ -1,6 +1,6 @@
 <?php
 /**
- * 自定义菜单管理。
+ * 消息推送。
  */
 
 namespace weixin;

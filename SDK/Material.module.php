@@ -1,6 +1,6 @@
 <?php
 /**
- * 自定义菜单管理。
+ * 素材管理。
  */
 
 namespace weixin;

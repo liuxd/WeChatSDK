@@ -1,4 +1,7 @@
 <?php
+/**
+ * 所有module类的基类。
+ */
 
 namespace weixin;
 

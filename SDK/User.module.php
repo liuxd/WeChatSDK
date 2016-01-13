@@ -8,6 +8,38 @@ namespace weixin;
 class User extends Base
 {
     /**
+     * 获得用openid列表。
+     * @param string $sNextOpenID 第一个拉取的OPENID，不填默认从头开始拉取
+     * @return array
+     */
+    public function getUserOpenidList($sNextOpenID = '')
+    {
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/user/get?access_token=' . $this->sAccessToken;
+
+        if ($sNextOpenID !== '') {
+            $sURL .= '&next_openid=' . $sNextOpenID;
+        }
+
+        return $this->curlGet($sURL);
+    }
+
+    /**
+     * 批量获得用户信息。
+     * @param array $aUserList 用户openid列表。
+     * @return array
+     */
+    public function getUserListInfo($aUserList)
+    {
+        $aParam['user_list'] = array_map(function($v){
+            return ['openid' => $v];
+        }, $aUserList);
+
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=' . $this->sAccessToken;
+
+        return $this->curlPost($sURL, $aParam);
+    }
+
+    /**
      * 批量加入某组。
      * @param int $iGroupID
      * @param array $aOpenIDs

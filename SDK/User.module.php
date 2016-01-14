@@ -28,15 +28,34 @@ class User extends Base
      * @param array $aUserList 用户openid列表。
      * @return array
      */
-    public function getUserListInfo($aUserList)
+    private function getUserListInfo($aUserList)
     {
-        $aParam['user_list'] = array_map(function($v){
-            return ['openid' => $v];
-        }, $aUserList);
+        if (empty($aUserList)) {
+            return [];
+        }
 
         $sURL = 'https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=' . $this->sAccessToken;
 
-        return $this->curlPost($sURL, $aParam);
+        $aOpenIDList = array_map(function($v){
+            return ['openid' => $v];
+        }, $aUserList);
+
+        $aResult = [];
+
+        foreach (array_chunk($aOpenIDList, 100) as $k => $aInputOpenID) {
+            $aParam['user_list'] = $aInputOpenID;
+            $aReturn = $this->curlPost($sURL, $aParam);
+
+            if (isset($aReturn['errcode'])) {
+                return $aReturn;
+            } else {
+                $aResult = array_merge($aResult, $aReturn['user_info_list']);
+            }
+
+            return $aResult;
+        }
+
+        return $aResult;
     }
 
     /**

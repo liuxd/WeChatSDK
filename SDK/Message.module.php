@@ -74,6 +74,17 @@ class Message extends Base
         $sURL = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=' . $this->sAccessToken;
         return $this->curlPost($sURL, $aBody);
     }
+
+    /**
+     * 查看发送消息的状态。
+     * @param int $iMsgID
+     * @return array
+     */
+    public function getMessageStatus($iMsgID)
+    {
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token=' . $this->sAccessToken;
+        return $this->curlPost($sURL, ['msg_id' => $iMsgID]);
+    }
 }
 
 # end of this file

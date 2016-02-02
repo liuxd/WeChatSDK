@@ -14,8 +14,7 @@ class Material extends Base
      */
     public function batchGet($aParams)
     {
-        $sAccessToken = $this->getGlobalAccessToken();
-        $sURL = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=' . $sAccessToken;
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=' . $this->sAccessToken;
         return $this->curlPost($sURL, $aParams);
     }
 
@@ -26,8 +25,7 @@ class Material extends Base
      */
     public function batchCount()
     {
-        $sAccessToken = $this->getGlobalAccessToken();
-        $sURL = 'https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=' . $sAccessToken;
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=' . $this->sAccessToken;
         return $this->curlGet($sURL);
     }
 
@@ -38,8 +36,7 @@ class Material extends Base
      */
     public function addNews($aInfo)
     {
-        $sAccessToken = $this->getGlobalAccessToken();
-        $sURL = 'https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=' . $sAccessToken;
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=' . $this->sAccessToken;
         return $this->curlPost($sURL, $aInfo);
     }
 
@@ -50,8 +47,7 @@ class Material extends Base
      */
     public function getMaterial($sMediaID)
     {
-        $sAccessToken = $this->getGlobalAccessToken();
-        $sURL = 'https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=' . $sAccessToken;
+        $sURL = 'https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=' . $this->sAccessToken;
         return $this->curlPost($sURL, ['media_id' => $sMediaID]);
     }
 }

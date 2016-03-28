@@ -13,6 +13,7 @@ class Base
     private $sAccessTokenRedisKey = 'api:weixin:access_token';
     private $oRedis = null;
     private $bSetRedis = false;
+    private $sAccessToken = '';
 
     public function __construct($sAppID, $sSecret, $oRedis = null)
     {
@@ -23,7 +24,17 @@ class Base
             $this->setRedis($oRedis);
         }
 
-        $this->sAccessToken = $this->getGlobalAccessToken();
+        $sAccessToken = $this->getGlobalAccessToken();
+        $this->setAccessToken($sAccessToken);
+    }
+
+    /**
+     * 设置sAccessToken。
+     * @param string $sAccessToken
+     */
+    public function setAccessToken($sAccessToken)
+    {
+        $this->sAccessToken = $sAccessToken;
     }
 
     /**
@@ -43,7 +54,7 @@ class Base
     public function getGlobalAccessTokenDetail()
     {
         $oRedis = $this->getRedis();
-        $value = $this->getGlobalAccessToken();
+        $value = $this->sAccessToken;
         $ttl = $oRedis->ttl($this->sAccessTokenRedisKey);
         return [$value, $ttl];
     }

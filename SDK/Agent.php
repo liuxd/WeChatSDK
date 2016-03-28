@@ -30,6 +30,10 @@ class Agent
         $sClassName = "\\weixin\\$sModuleName";
         $this->{$sModuleName} = new $sClassName($sAppID, $sSecret, $aParams['oRedis']);
 
+        if (isset($aParams['sAccessToken']) and !empty($aParams['sAccessToken'])) {
+            $this->{$sModuleName}->setAccessToken($aParams['sAccessToken']);
+        }
+
         return true;
     }
 }

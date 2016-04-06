@@ -13,7 +13,7 @@ class Base
     private $sAccessTokenRedisKey = 'api:weixin:access_token';
     private $oRedis = null;
     private $bSetRedis = false;
-    private $sAccessToken = '';
+    protected $sAccessToken = '';
 
     public function __construct($sAppID, $sSecret, $oRedis = null)
     {

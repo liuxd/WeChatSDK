@@ -131,10 +131,10 @@ class Base
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  
 
-        $aResult = curl_exec($ch);
+        $sResult = curl_exec($ch);
         curl_close($ch);
 
-        return json_decode($aResult, true);
+        return $this->handleReturn($sResult);
     }
 
     /**
@@ -156,10 +156,31 @@ class Base
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($aData, JSON_UNESCAPED_UNICODE));
 
-        $aResult = curl_exec($ch);
+        $sResult = curl_exec($ch);
         curl_close($ch);
 
-        return json_decode($aResult, true);
+        return $this->handleReturn($sResult);
+    }
+
+    /**
+     * 处理请求接口后的返回值。
+     * @param string $sResult 返回字符串。
+     * @return array
+     */
+    protected function handleReturn($sResult)
+    {
+        $aResult = json_decode($sResult, true);
+
+        if ((int)$aResult['errcode'] === 40001) {
+            // 如果token失效，则删除token缓存。下次请求API时会请求新的token。
+            $this->delGlobalAccessToken();
+
+            // 记录token失效的次数。
+            $oRedis = $this->getRedis();
+            $oRedis->hIncrBy('api:weixin:access_token_reset', date('Y-m-d'), 1);
+        }
+
+        return $aResult;
     }
 }
 
